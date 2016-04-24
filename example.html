@@ -1,0 +1,82 @@
+<html>
+<head>
+    <title>
+       Примеры использования Parser (псевдо-API) http://miu.by/rus/schedule/schedule.php
+    </title>
+</head>
+<body>
+Расписание преподавателя (упрощенное): Кафедра-группа-номер_учебной_недели-формат упрощенный(1)<br>
+parse_miuby_schedule.php?kafedra=Информационных%20технологий&teacher=Жуковский%20В.С.&week=2&weekf=1<br>
+<br>
+Расписание преподавателя (полное): Кафедра-группа-номер_учебной_недели<br>
+parse_miuby_schedule.php?kafedra=Информационных%20технологий&teacher=Жуковский%20В.С.&week=2<br>
+<br>
+Учебные недели преподателя: Кафедра-ФамилияИО<br>
+parse_miuby_schedule.php?kafedra=Информационных%20технологий&teacher=Жуковский%20В.С.<br>
+<br>
+Преподаватели на кафедеде: Кафедра<br>
+parse_miuby_schedule.php?kafedra=Информационных%20технологий<br>
+<br>
+
+
+
+
+Группы на специальности:<br>
+parse_miuby_schedule.php?specialty=Информационные%20системы%20и%20технологии%20(в%20управлении)<br>
+<br>
+
+Группы на специальности (json raspisaniye-vuzov.ru):<br>
+parse_miuby_schedule.php?get_groups=1&specialty=Информационные%20системы%20и%20технологии%20(в%20управлении)<br>
+<br>
+
+
+
+Учебные недели студента : Кафедра-группа<br>
+parse_miuby_schedule.php?specialty=Информационные%20системы%20и%20технологии%20(в%20управлении)&group=91201з<br>
+<br>
+Учебные недели студента : Группа<br>
+parse_miuby_schedule.php?group=91201з<br>
+<br>
+Учебные недели студента (json): Группа<br>
+parse_miuby_schedule.php?group=120605тз&json=1<br>
+<br>
+Расписание студента (полное): Кафедра-группа-номер_учебной_недели<br>
+parse_miuby_schedule.php?specialty=Информационные%20системы%20и%20технологии%20(в%20управлении)&group=91201з&week=15<br>
+<br>
+Расписание студента (упрощенное): Кафедра-группа-номер_учебной_недели-формат упрощенный(1)<br>
+parse_miuby_schedule.php?specialty=Информационные%20системы%20и%20технологии%20(в%20управлении)&group=91201з&week=15&weekf=1<br>
+<br>
+Расписание студента (упрощенное): Кафедра-группа-номер_учебной_недели-формат упрощенный(1)(json)<br>
+parse_miuby_schedule.php?specialty=Информационные%20системы%20и%20технологии%20(в%20управлении)&group=91201з&week=27&weekf=1&json=1<br>
+<br>
+Номер текущей учебной недели:<br>
+parse_miuby_schedule.php?weekn=1<br>
+<br>
+Список кафедр:<br>
+parse_miuby_schedule.php?list_kafedra=1<br>
+<br>
+Список кафедр (json raspisaniye-vuzov.ru):<br>
+parse_miuby_schedule.php?get_faculties=1<br>
+<br>
+
+Список специальностей университета:<br>
+parse_miuby_schedule.php?specialities=1<br>
+<br>
+
+Список специальностей университета (json raspisaniye-vuzov.ru):<br>
+parse_miuby_schedule.php?get_spec=1<br>
+<br>
+
+
+
+Список всех преподавателей университета:<br>
+parse_miuby_schedule.php?allteachers=1<br>
+<br>
+Список всех учебных групп университета:<br>
+parse_miuby_schedule.php?groups=1<br>
+<br>
+
+
+
+</body>
+</html>

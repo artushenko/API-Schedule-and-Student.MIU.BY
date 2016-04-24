@@ -1,0 +1,5 @@
+Все относительные пути или полностью  var/www/html/miuby.info/raspisaniye-vuzov.ru/ или ../
+
+/get_faculties
+/get_schedule?group_id=идентификатор_группы
+/get_groups?faculty_id=идентификатор_факультета

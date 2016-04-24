@@ -1,0 +1,343 @@
+﻿<html>
+<head>
+    <title>
+        Parser (псевдо-API) http://miu.by/rus/schedule/schedule.php
+    </title>
+</head>
+
+
+<style type="text/css">
+    table {
+        border-collapse: collapse;
+    }
+
+    table th,
+    table td {
+        padding: 0 5px;
+        border: 1px solid #000;
+        text-align: left;
+    }
+</style>
+<a name="top"></a>
+    <div style="background: cornflowerblue; color: black; font-weight: bold; padding-top: 20px; padding-bottom: 20px; padding-right: 10px;
+     font-size: 21px;    text-align: right; ">
+Версия скрипта: 1.7 (2015-09-08)<br>
+Разразботчик: Mikhail Artsiushenka
+        </div>
+
+    <div style="text-align: center; background: lightskyblue; ">
+<a href="about.html#function">[Функция]</a>
+       
+        <a href="about.html#example">[Примеры]</a>
+
+</div>
+<br>
+<br>
+<b>Блог проекта:</b>
+ <hr><i>2016-01-27</i><br>
+    -Добавлена возможность запрашивать номер текущей учебной недели и номер максимальной учебной недели с имеющимся расписанием в json-формате.<br>
+ <hr><i>2015-09-08</i><br>
+    -Добавлена возможность запрашивать новости университета в json-формате.<br>
+    <hr><i>2015-09-03</i><br>
+    -Добавлены запросы по спецификации сервиса http://raspisaniye-vuzov.ru.<br>
+    -В связи с изменениями в структуре сайте miu.by исправлены запросы для получения расписания занятий.<br>
+<hr><i>2015-07-31</i><br>
+    -Добавлена возможность запрашивать расписание занятий в json-формате для сервиса http://raspisaniye-vuzov.ru.<br>
+    -Добавлена возможность запрашивать список специальностей в json-формате для сервиса http://raspisaniye-vuzov.ru.<br>
+    -Добавлена возможность запрашивать список групп в json-формате для сервиса http://raspisaniye-vuzov.ru.<br>
+    -Добавлена возможность запрашивать список групп по специалности в json-формате для сервиса http://raspisaniye-vuzov.ru.<br>
+    <hr>
+<i>2015-07-15</i><br>
+-Пример формирования запросов - <a href="about.html#example">ссылка</a>.<br>
+-Добавлена возможность запрашивать расписание занятий в json-формате. <a href="about.html#jsonexample">Формат</a> документа.<br>
+-Добавлена возможность запрашивать данные по учебным неделям в json-формате.<br>
+<hr>
+<i>2015-05-25</i><br>
+Добавлены две новые функции:<br>
+-cписок специальностей университета;<br>
+-cписок всех преподавателей университета.<br>
+Разработано описание скрипта.<br>
+<hr>
+<br>
+<br>
+<a name="function"></a>
+<div style="text-align: center;">
+<table border="1">
+    <tr>
+        <td>
+            Функция
+        </td>
+        <td>
+            Параметры
+        </td>
+        <td>
+            Пример
+        </td>
+    </tr>
+
+    <tr>
+        <td>Расписание преподавателя (упрощенное):</td>
+        <td>Кафедра,<br>фамилия и.о. преподавателя,<br>номер учебной недели,<br>формат упрощенный(1)</td>
+        <td>kafedra=Информационных%20технологий<br>
+            teacher=Жуковский%20В.С.<br>
+            week=2<br>
+            weekf=1
+        </td>
+    </tr>
+
+    <tr>
+        <td>Расписание преподавателя (полное):</td>
+        <td>Кафедра,<br>фамилия и.о. преподавателя,<br>номер учебной недели</td>
+        <td>kafedra=Информационных%20технологий<br>
+            teacher=Жуковский%20В.С.<br>
+            week=2
+        </td>
+    </tr>
+
+    <tr>
+        <td>Учебные недели преподавателя:</td>
+        <td>Кафедра,<br>фамилия и.о. преподавателя</td>
+        <td>kafedra=Информационных%20технологий<br>
+            teacher=Жуковский%20В.С.
+        </td>
+    </tr>
+
+    <tr>
+        <td>Преподаватели на кафедре:</td>
+        <td>Кафедра</td>
+        <td>kafedra=Информационных%20технологий</td>
+    </tr>
+
+    <tr>
+        <td>Группы на специальности:</td>
+        <td>Кафедра</td>
+        <td>specialty=Информационные%20системы%20и%20технологии%20(в%20управлении)</td>
+    </tr>
+
+    <tr>
+        <td>Учебные недели студента :</td>
+        <td>Кафедра,<br>группа</td>
+        <td>specialty=Информационные%20системы%20и%20технологии%20(в%20управлении)<br>
+            group=91201з
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>Группа</td>
+        <td>group=91201з<br>
+            [json=1]
+        </td>
+    </tr>
+
+    <tr>
+        <td>Расписание студента (полное):</td>
+        <td>Кафедра,<br>группа,<br>номер учебной недели</td>
+        <td>specialty=Информационные%20системы%20и%20технологии%20(в%20управлении)<br>
+            group=91201з<br>
+            week=15
+        </td>
+    </tr>
+
+    <tr>
+        <td>Расписание студента (упрощенное):</td>
+        <td>Кафедра,<br>группа,<br>номер учебной недели,<br>формат упрощенный (1)</td>
+        <td>specialty=Информационные%20системы%20и%20технологии%20(в%20управлении)<br>
+            group=91201з<br>
+            week=15<br>
+            weekf=1<br>
+            [json=1]
+        </td>
+    </tr>
+
+    <tr>
+        <td>Номер текущей учебной недели:</td>
+        <td></td>
+        <td>weekn=1</td>
+    </tr>
+
+    <tr>
+        <td>Список кафедр:</td>
+        <td></td>
+        <td>list_kafedra=1</td>
+    </tr>
+
+    <tr>
+        <td>Список специальностей университета:</td>
+        <td></td>
+        <td>specialities=1</td>
+    </tr>
+
+    <tr>
+        <td>Список всех преподавателей университета:</td>
+        <td></td>
+        <td>allteachers=1</td>
+    </tr>
+
+
+	  <tr>
+        <td>Список всех учебных групп университета:</td>
+        <td></td>
+        <td>groups=1</td>
+    </tr>
+</table>
+</div>
+
+<a href="about.html#top">Вверх</a>
+<br>
+<hr>
+
+<br><a name="example"></a>
+<b>Пример отправки запросов</b>
+<br><br>
+    Расписание преподавателя (упрощенное): Кафедра-группа-номер_учебной_недели-формат упрощенный(1)<br>
+    parse_miuby_schedule.php?kafedra=Информационных%20технологий&teacher=Жуковский%20В.С.&week=2&weekf=1<br>
+    <br>
+    Расписание преподавателя (полное): Кафедра-группа-номер_учебной_недели<br>
+    parse_miuby_schedule.php?kafedra=Информационных%20технологий&teacher=Жуковский%20В.С.&week=2<br>
+    <br>
+    Учебные недели преподателя: Кафедра-ФамилияИО<br>
+    parse_miuby_schedule.php?kafedra=Информационных%20технологий&teacher=Жуковский%20В.С.<br>
+    <br>
+    Преподаватели на кафедеде: Кафедра<br>
+    parse_miuby_schedule.php?kafedra=Информационных%20технологий<br>
+    <br>
+
+    Группы на специальности:<br>
+    parse_miuby_schedule.php?specialty=Информационные%20системы%20и%20технологии%20(в%20управлении)<br>
+    <br>
+
+    Учебные недели студента : Кафедра-группа<br>
+    parse_miuby_schedule.php?specialty=Информационные%20системы%20и%20технологии%20(в%20управлении)&group=91201з<br>
+    <br>
+    Учебные недели студента : Группа<br>
+    parse_miuby_schedule.php?group=91201з<br>
+    <br>
+    Учебные недели студента (json): Группа<br>
+    parse_miuby_schedule.php?group=120605тз&json=1<br>
+    <br>
+    Расписание студента (полное): Кафедра-группа-номер_учебной_недели<br>
+    parse_miuby_schedule.php?specialty=Информационные%20системы%20и%20технологии%20(в%20управлении)&group=91201з&week=15<br>
+    <br>
+    Расписание студента (упрощенное): Кафедра-группа-номер_учебной_недели-формат упрощенный(1)<br>
+    parse_miuby_schedule.php?specialty=Информационные%20системы%20и%20технологии%20(в%20управлении)&group=91201з&week=15&weekf=1<br>
+    <br>
+    Расписание студента (упрощенное): Кафедра-группа-номер_учебной_недели-формат упрощенный(1)(json)<br>
+    parse_miuby_schedule.php?specialty=Информационные%20системы%20и%20технологии%20(в%20управлении)&group=91201з&week=27&weekf=1&json=1<br>
+    <br>
+
+Новости университета (в json-формате):<br>
+<a href="parse_miuby_schedule.php?get_news=1">parse_miuby_schedule.php?get_news=1</a><br>
+    <br>
+
+    Максимальный номер учебной недели, на которое составлено расписание:<br>
+<a href="parse_miuby_schedule.php?weekn=1">parse_miuby_schedule.php?weekn=1</a><br>
+    <br>
+
+	    Номер текущей учебной недели и максимальный номер учебной недели, на которое составлено расписание (в json-формате: [currentWeek (int),maxWeekSchedule(int)]):<br>
+<a href="parse_miuby_schedule.php?weekn=3">parse_miuby_schedule.php?weekn=3</a><br>
+    <br>
+	
+		    Номер текущей учебной недели:<br>
+<a href="parse_miuby_schedule.php?weekn=2">parse_miuby_schedule.php?weekn=2</a><br>
+    <br>
+	
+    Список кафедр:<br>
+<a href="parse_miuby_schedule.php?list_kafedra=1">parse_miuby_schedule.php?list_kafedra=1</a><br>
+    <br>
+
+    Список специальностей университета:<br>
+<a href="parse_miuby_schedule.php?specialities=1">parse_miuby_schedule.php?specialities=1</a><br>
+    <br>
+
+    Список всех преподавателей университета:<br>
+<a href="parse_miuby_schedule.php?allteachers=1">parse_miuby_schedule.php?allteachers=1</a><br>  <br>
+    Список всех преподавателей университета (в кавычках, через запятую):<br>
+   <a href="parse_miuby_schedule.php?allteachers=2">parse_miuby_schedule.php?allteachers=2</a> <br>
+    <br>
+
+    Список всех учебных групп университета:<br>
+<a href="parse_miuby_schedule.php?groups=1">parse_miuby_schedule.php?groups=1</a><br>
+    <br>
+
+    Список всех учебных групп по специальностям университета:<br>
+<a href="parse_miuby_schedule.php?groups=1&groupsspec=1">parse_miuby_schedule.php?groups=1&groupsspec=1</a><br>
+    <br>
+
+    Список кафедр (json raspisaniye-vuzov.ru):<br>
+    parse_miuby_schedule.php?get_faculties=1<br>
+    <br>
+
+    Список всех учебных групп университета(json raspisaniye-vuzov.ru):<br>
+    parse_miuby_schedule.php?get_groups=1<br>
+    <br>
+
+    Список специальностей университета (json raspisaniye-vuzov.ru):<br>
+    parse_miuby_schedule.php?get_spec=1<br>
+    /raspisaniye-vuzov.ru/get_faculties <br>
+    <br>
+
+    Список учебных групп по специальностям университета (json raspisaniye-vuzov.ru):<br>
+    parse_miuby_schedule.php?get_groups=1&specialty=Информационные%20системы%20и%20технологии%20(в%20управлении)<br>
+    parse_miuby_schedule.php?get_spec_group=1<br>
+    /raspisaniye-vuzov.ru/get_groups?faculty_id=Современные%20иностранные%20языки%20(перевод)<br>
+    <br>
+
+    Расписание студента (json raspisaniye-vuzov.ru): Группа<br>
+    parse_miuby_schedule.php?get_schedule=1&group_id=120605тз<br>
+    /raspisaniye-vuzov.ru/get_schedule?group_id=121201с<br>
+    <br>
+    <br>
+<br>
+<a href="about.html#top">Вверх</a>
+<br>
+<hr>
+<br>
+ <a name="jsonexample"></a>
+<b>Формат представления данных "расписание занятий студента" в json-формате</b>
+<br><br>
+{<br>
+"schedule":{<br>
+"week":"String",  //номер недели<br>
+"lessons":[<br>
+[<br>
+{<br>
+"date":"String" // День недели, число месяц год<br>
+},<br>
+{<br>
+"lesson_id":int,  // порядковый номер занятия<br>
+"lesson":{<br>
+"time":"XX:XX-XX:XX", //время занятия<br>
+"subject":"String", //наименование предмета<br>
+"teacher":"String", //фамилия и.о. преподавателя<br>
+"classroom":"String" //номер аудитории: корпус-номер кабинета<br>
+}<br>
+},<br>
+{}<br>
+],<br>
+[...],<br>
+[...]<br>
+]<br>
+}<br>
+}<br>
+<hr>
+{
+"schedule":{Object
+"week":"", "lessons":[Array
+[Array
+{Object "date":""},
+{Object "lesson_id":int, "lesson":{Object "time":"","subject":"","teacher":"","classroom":""}},
+{...}
+],
+[...],
+[...]
+]
+}
+}
+<hr>
+
+<br>
+<a href="about.html#top">Вверх</a>
+<br>
+
+
+</html>
